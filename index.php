@@ -1,4 +1,16 @@
 <?php
+
+$btnExitEnable = false;
+
+if (isset($_POST['submitSend'])) {
+    require_once './classes/class_Mailer.php';
+    if (Mailer::send($_POST['email'], $_POST['text'])) {
+        $info = 'Лист вдало відправлено!';
+        $btnExitEnable = true;
+    } else {
+        $info = 'Спроба відправити лист - невдала!';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,11 +29,11 @@
                 <div class="form-group">
                     <label for="email">e-mail</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Введіть e-mail адресу">
-                    <small id="emailHelp" class="form-text text-muted">Ваша e-mail адреса не буде використовуватись десь ще</small>
+                    <small id="emailHelp" class="form-text text-muted">Ця e-mail адреса не буде використовуватись десь ще</small>
                 </div>
                 <div class="form-group">
-                    <label for="mail">Сповіщення</label>
-                    <textarea class="form-control" id="mail" name="mail" placeholder="сповіщення" rows="3"></textarea>
+                    <label for="text">Сповіщення</label>
+                    <textarea class="form-control" id="text" name="text" placeholder="сповіщення" rows="3"></textarea>
                 </div>
                 <?php
                     if (!$btnExitEnable) {
